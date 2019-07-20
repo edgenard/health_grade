@@ -1,0 +1,2 @@
+class HealthInspection < ApplicationRecord
+end
