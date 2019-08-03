@@ -141,6 +141,40 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: violations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE violations (
+    id bigint NOT NULL,
+    code character varying,
+    description text,
+    critical_flag character varying,
+    health_inspection_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: violations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE violations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: violations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE violations_id_seq OWNED BY violations.id;
+
+
+--
 -- Name: health_inspections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -152,6 +186,13 @@ ALTER TABLE ONLY health_inspections ALTER COLUMN id SET DEFAULT nextval('health_
 --
 
 ALTER TABLE ONLY restaurants ALTER COLUMN camis SET DEFAULT nextval('restaurants_camis_seq'::regclass);
+
+
+--
+-- Name: violations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY violations ALTER COLUMN id SET DEFAULT nextval('violations_id_seq'::regclass);
 
 
 --
@@ -187,6 +228,29 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
+-- Name: violations violations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY violations
+    ADD CONSTRAINT violations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_violations_on_health_inspection_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_violations_on_health_inspection_id ON violations USING btree (health_inspection_id);
+
+
+--
+-- Name: violations fk_rails_e9c1ad35d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY violations
+    ADD CONSTRAINT fk_rails_e9c1ad35d8 FOREIGN KEY (health_inspection_id) REFERENCES health_inspections(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -198,6 +262,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190728225908'),
 ('20190728232038'),
 ('20190729010807'),
-('20190731003142');
+('20190731003142'),
+('20190803174158');
 
 
