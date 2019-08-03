@@ -61,9 +61,6 @@ CREATE TABLE health_inspections (
     id bigint NOT NULL,
     inspection_date date,
     action text,
-    violation_code character varying,
-    violation_description text,
-    critical_flag character varying,
     score integer,
     grade_date date,
     restaurant_id integer,
@@ -263,6 +260,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190728232038'),
 ('20190729010807'),
 ('20190731003142'),
-('20190803174158');
+('20190803174158'),
+('20190803231720');
 
 
