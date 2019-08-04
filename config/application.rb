@@ -1,4 +1,6 @@
-require_relative 'boot'
+# frozen_string_literal: true
+
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -32,8 +34,8 @@ module OrchardAssessment
     config.generators do |g|
       g.javascripts     false
       g.helper          false
-      g.mailer            false
-      g.channel         assets: false
+      g.mailer false
+      g.channel assets: false
     end
   end
 end
