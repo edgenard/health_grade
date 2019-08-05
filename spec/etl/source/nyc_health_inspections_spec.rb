@@ -15,7 +15,7 @@ RSpec.describe Etl::Source::NycHealthInspections do
   def generate_csv(path, rows)
     CSV.open(path, "w") do |csv|
       rows.each do |row|
-        csv << row.split(",")
+        csv << CSV.parse_line(row)
       end
     end
   end
@@ -26,8 +26,8 @@ RSpec.describe Etl::Source::NycHealthInspections do
     let(:row) do
       "40819558,JAKE'S STEAKHOUSE,BRONX,6031,BROADWAY,10471,7185810182,Steak,"\
       "04/09/2019,Violations were cited in the following area(s).,04H,"\
-      "\"Raw, cooked or prepared food is adulterated, contaminated, "\
-      "cross-contaminated, or not discarded in accordance with HACCP plan.\","\
+      "Raw cooked or prepared food is adulterated contaminated "\
+      "cross-contaminated or not discarded in accordance with HACCP plan.,"\
       "Critical,,,,07/13/2019,Cycle Inspection / Initial Inspection"
     end
     let(:rows) { [headers, row] }
@@ -38,7 +38,7 @@ RSpec.describe Etl::Source::NycHealthInspections do
 
     it "outputs the row with headers as symbols" do
       expect { |b| source.each(&b) }.to yield_with_args(
-        a_hash_including(:camis,  :inspection_type),
+        a_hash_including(:camis, :inspection_type),
       )
     end
   end
