@@ -11,8 +11,8 @@ RSpec.describe Etl::Transform::RenameHealthInspectionKeys do
         dba: "JAKE'S STEAKHOUSE",
         boro: "BRONX",
         building: "6031",
-         street: "BROADWAY",
-         zipcode: "10471",
+        street: "BROADWAY",
+        zipcode: "10471",
         phone: "7185810182",
         cuisine_description: "Steak",
         inspection_date: "04/09/2019",
@@ -26,7 +26,7 @@ RSpec.describe Etl::Transform::RenameHealthInspectionKeys do
         grade: "",
         grade_date: "",
         record_date: "07/13/2019",
-        inspection_type: "Cycle Inspection / Initial Inspection"
+        inspection_type: "Cycle Inspection / Initial Inspection",
       }
     end
 
@@ -35,9 +35,9 @@ RSpec.describe Etl::Transform::RenameHealthInspectionKeys do
       expect(transform.process(row)).to have_key(:cuisine)
     end
 
-    it 'transform empty grade to N' do
+    it "transform empty grade to N" do
       processed_row = transform.process(row)
-      expect(processed_row[:grade]).to eq('N')
+      expect(processed_row[:grade]).to eq("N")
     end
   end
 end
